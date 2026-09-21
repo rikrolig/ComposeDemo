@@ -16,6 +16,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.mycompany.composedemo.ui.theme.ComposeDemoTheme
 import androidx.compose.material3.Slider
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,4 +88,29 @@ fun DemoSlider(
         value = sliderPosition,
         onValueChange = { onPositionChange(it) }
     )
+}
+
+@Composable
+fun DemoScreen(modifier: Modifier = Modifier) {
+    var sliderPosition by remember { mutableFloatStateOf(20f) }
+    val handlePositionChange = { position: Float ->
+        sliderPosition = position
+    }
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = modifier.fillMaxSize()
+    ) {
+        DemoText(message = "Welcome to Compose", fontSize = sliderPosition)
+        Spacer(modifier = Modifier.height(150.dp))
+        DemoSlider(
+            sliderPosition = sliderPosition,
+            onPositionChange = handlePositionChange
+        )
+        Text(
+            style = MaterialTheme.typography.headlineMedium,
+            text = sliderPosition.toInt().toString() + "sp"
+        )
+    }
 }
