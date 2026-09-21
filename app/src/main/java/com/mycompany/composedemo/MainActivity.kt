@@ -114,3 +114,13 @@ fun DemoScreen(modifier: Modifier = Modifier) {
         )
     }
 }
+
+@Preview(showSystemUi = true)
+@Composable
+fun DemoScreenPreview() {
+    ComposeDemoTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            DemoScreen(modifier = Modifier.padding(innerPadding))
+        }
+    }
+}
